@@ -18,7 +18,7 @@ class CreateJobsTable extends Migration
             $table->timestamps();
             $table->string('eventName');
             $table->string('name');
-            $table->string('Department');
+            $table->string('department');
             $table->dateTime('dateAndTime');
             $table->string('location');
             $table->text('specs');
