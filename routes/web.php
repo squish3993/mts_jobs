@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('jobs.index');
+    return view('Jobs.index');
 });
 
 Route::get('/debug', function () {
