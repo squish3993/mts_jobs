@@ -32,6 +32,9 @@
 
         <label for='specs'>* Tell Us About Your Job</label>
         <input type='text' name='specs' id='specs'>
+
+        <label for='numOnJob'>* How many People do you need</label>
+        <input type='text' name='numOnJob' id='numOnJob'>
         
         
 

@@ -22,6 +22,7 @@ class CreateJobsTable extends Migration
             $table->dateTime('dateAndTime');
             $table->string('location');
             $table->text('specs');
+            $table->integer('numOnJob');
 
         });
 

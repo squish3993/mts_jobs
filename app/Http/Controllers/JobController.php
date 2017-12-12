@@ -4,18 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Job;
+use App\Employee;
 
 class JobController extends Controller
 {
      public function index(Request $request)
     {
-            $jobs = job::orderBy('eventName')->get();
+        $jobs = Job::with('employees')->orderBy('id')->get();
+        
 
-    
-
-        return view('jobs.index')->with([
+     return view('jobs.index')->with([
             'jobs' => $jobs
+                      
         ]);
+    }
+
+    public function signUp($id)
+    {
+        $job = Job::find($id);
+
+        $employeesForThisJob= [];
+        
+        foreach ($job->employees as $employee) 
+        {
+            $employeesForThisJob[] = $employee->lastName.', '.$employee->firstName;
+        }
+
+        return view('jobs.show')->with
+            ([
+                'employeesForThisJob' => $employeesForThisJob,
+                'job' => $job
+            ]);
     }
 
     public function create()
@@ -32,6 +51,7 @@ class JobController extends Controller
             'department' => 'required',
             'location' => 'required',
             'specs' => 'required',
+            'numOnJob' => 'required'
         ]);
 
         # Add new book to the database
@@ -42,6 +62,7 @@ class JobController extends Controller
         $job->dateAndTime = '2017-11-20 15:30:00';
         $job->location = $request->input('location');
         $job->specs = $request->input('specs');
+        $job->numOnJob = $request->input('numOnJob');
 
 
         # Note: Not using the Eloquent `associate` method to connect book to authors
@@ -85,6 +106,7 @@ class JobController extends Controller
             'department' => 'required',
             'location' => 'required',
             'specs' => 'required',
+            'numOnJob' => 'required'
         ]);
 
         $job = Job::find($id);
@@ -96,6 +118,7 @@ class JobController extends Controller
         $job->dateAndTime = '2017-11-20 15:30:00';
         $job->location = $request->input('location');
         $job->specs = $request->input('specs');
+        $job->numOnJob = $request->input('numOnJob');
         $job->save();
 
         return redirect('/job/'.$id.'/edit')->with('alert', 'Your changes were saved.');

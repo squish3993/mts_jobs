@@ -34,6 +34,9 @@
 
         <label for='specs'>* Tell Us About Your Job</label>
         <input type='text' name='specs' id='specs' value='{{ old('specs', $job->specs) }}'>
+
+        <label for='specs'>* How Many People Do You Need</label>
+        <input type='text' name='numOnJob' id='numOnJob' value='{{ old('numOnJob', $job->numOnJob) }}'>
         
         
 

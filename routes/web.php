@@ -20,6 +20,10 @@ Route::get('/', function () {
 Route::get('/job/create', 'JobController@create');
 Route::post('/jobs', 'JobController@store');
 
+#Add an Employee
+Route::get('/employee/create', 'EmployeeController@create');
+Route::post('/employees', 'EmployeeController@store');
+
 # Edit a book
 Route::get('/job/{id}/edit', 'JobController@edit');
 Route::put('/job/{id}', 'JobController@update');
@@ -30,6 +34,9 @@ Route::delete('/job/{id}', 'JobController@destroy');
 
 #View all Jobs
 Route::get('/jobs', 'JobController@index');
+
+#View Sign-Up Sheet
+Route::get('/job/{id}/employees', 'JobController@signUp');
 
 #View all Employees
 Route::get('/employees', 'EmployeeController@index');
