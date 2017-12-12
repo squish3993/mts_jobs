@@ -6,15 +6,13 @@
 @endpush
 
 @section('title')
-	MTS Jobs
+	MTS Employees
 @endsection
 
 @section('content')
-	@foreach($jobs as $job)
+	@foreach($employees as $employee)
 	            <div class='book cf'>
-	             	<h2>{{ $job['eventName'] }}</h2>
-	             	<a href='/job/{{ $job['id'] }}/edit'>Edit</a> |
-	             	<a href='/job/{{ $job['id'] }}/delete'>Delete</a>
+	             	<h2>{{ $employee['lastName'] }}</h2>
 	            </div>
 	 @endforeach
 @endsection

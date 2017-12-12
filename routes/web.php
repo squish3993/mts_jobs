@@ -11,9 +11,39 @@
 |
 */
 
+#Homepage
 Route::get('/', function () {
-    return view('Jobs.index');
+    return view('layouts.master');
 });
+
+#Add a Job
+Route::get('/job/create', 'JobController@create');
+Route::post('/jobs', 'JobController@store');
+
+# Edit a book
+Route::get('/job/{id}/edit', 'JobController@edit');
+Route::put('/job/{id}', 'JobController@update');
+
+# Delete a book
+Route::get('/job/{id}/delete', 'JobController@delete');
+Route::delete('/job/{id}', 'JobController@destroy');
+
+#View all Jobs
+Route::get('/jobs', 'JobController@index');
+
+#View all Employees
+Route::get('/employees', 'EmployeeController@index');
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/debug', function () {
 
