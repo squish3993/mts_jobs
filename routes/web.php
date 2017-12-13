@@ -20,11 +20,11 @@ Route::get('/', function () {
 Route::get('/job/create', 'JobController@create');
 Route::post('/jobs', 'JobController@store');
 
-#Add an Employee
+#Add an Employee 
 Route::get('/employee/create', 'EmployeeController@create');
 Route::post('/employees', 'EmployeeController@store');
 
-# Edit a book
+# Edit a job
 Route::get('/job/{id}/edit', 'JobController@edit');
 Route::put('/job/{id}', 'JobController@update');
 
@@ -40,18 +40,26 @@ Route::delete('/job/{id}', 'JobController@destroy');
 Route::get('/employee/{id}/delete', 'EmployeeController@delete');
 Route::delete('/employee/{id}', 'EmployeeController@destroy');
 
+#Add an Employee to a Job
+Route::get('/employee/{id}/add', 'EmployeeController@add');
+Route::put('/job/{id}/add', 'JobController@attach');
+
+#Remove an Employee from a Job
+Route::get('/employee/{id}/{lastName}/{firstName}/remove', 'JobController@remove');
+Route::put('job/{id}/employees', 'JobController@detach');
+
+
 #View all Jobs
 Route::get('/jobs', 'JobController@index');
 
 #View Sign-Up Sheet
 Route::get('/job/{id}/employees', 'JobController@signUp');
 
-#Remove an Employee from a Job
-Route::get('/employee/{id}/{lastName}/{firstName}/remove', 'JobController@remove');
-Route::put('job/{id}/employees', 'JobController@detach');
-
 #View all Employees
 Route::get('/employees', 'EmployeeController@index');
+
+
+
 
 
 

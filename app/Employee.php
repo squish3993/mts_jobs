@@ -11,6 +11,19 @@ class Employee extends Model
     	return $this->belongsToMany('App\Job')->withTimestamps();
 	}
 
+	public static function getForDropdown()
+	{
+	    $employees = Employee::orderBy('lastName')->get();
+
+	    $employeesforDropdown = [];
+
+	    foreach ($employees as $employee) 
+	    {
+	        $employeesforDropdown[$employee['id']] = $employee->lastName.'. '.$employee->firstName;
+	    }
+
+		return $employeesforDropdown;
+	}
 }
 
 

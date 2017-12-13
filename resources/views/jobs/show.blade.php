@@ -39,6 +39,9 @@
 					 			</li>
 					 		@endforeach
 			 			</ol>
+			 			@if ($job['numOnJob'] > $job['employees_count'])
+					 			<a href='/employee/{{ $job['id'] }}/add'>Sign up for this Job!</a>
+					 	@endif
 			 		</td>
 
 

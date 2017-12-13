@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 Use App\Employee;
+Use App\Job;
 
 class EmployeeController extends Controller
 {
@@ -134,5 +135,18 @@ class EmployeeController extends Controller
 
         return redirect('/employees')->with('alert', $employee->lastName.' was removed.');
     }
+
+    public function add($id)
+    {
+        $employeesForDropdown = Employee::getForDropdown();
+        $job = Job::find($id);
+        
+
+        return view('employees.add')->with([
+            'employeesForDropdown' => $employeesForDropdown,
+            'job' => $job
+            ]);
+    }
+
     
 }

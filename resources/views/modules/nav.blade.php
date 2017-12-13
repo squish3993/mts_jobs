@@ -5,8 +5,7 @@
         'employees' => 'Employees',
         'job/create' => 'Add a Job',
         'employee/create' => 'Add an Employee',
-        'search/job' => 'Search for a Job',
-        'search/employee' => 'Search for an Employee'
+
     ];
 
 @endphp

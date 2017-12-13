@@ -178,8 +178,27 @@ class JobController extends Controller
         $job = Job::find($id);
         $employee = Employee::where('lastName', '=', $lastName)->where('firstName', '=', $firstName)->first();
 
+         if (!$employee) 
+        {
+            return redirect('/jobs')->with('alert', 'Employee not found');
+        }
         $job->employees()->detach($employee->id);
        
        return redirect('/job/'.$job->id.'/employees')->with('alert', $employee->lastName.', '.$employee->firstName. ' was removed from the job.');
     }
+
+    public function attach(Request $request, $id)
+    {
+        $job = Job::with('employees')->find($id);
+        $employee = $request->input('employee');
+    
+        $job->employees()->attach($employee);
+
+        return redirect('/job/'.$job->id.'/employees');
+        
+        
+    }
+
+
 }
+
