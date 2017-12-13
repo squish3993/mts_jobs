@@ -12,10 +12,11 @@
 }
 
 nav {
-    border-top:1px solid #eee;
-    border-bottom:1px solid #eee;
+    border-top:1px solid #F7DBC4;
+    border-bottom:1px solid #F7DBC4;
     padding:5px;
     margin-top:10px;
+
 }
 
 nav ul {
@@ -36,9 +37,22 @@ nav ul li a:link {
 }
 
 nav ul li a:hover {
-    color:#18bc9c; /* flatly teel */
+    color:#9C2E2D;; /* flatly teel */
 }
 
 a.active:link, a.active:visited, a.active:active, a.active:hover {
-    color:#18bc9c;
+    color:#9C2E2D;
+}
+
+.bigtitle{
+	color:#9C2E2D;
+}
+
+.error {
+	color:#E81503;
+}
+
+.alert {
+	text-align:center;
+	color:#E81503;
 }

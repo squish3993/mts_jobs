@@ -149,8 +149,19 @@ class EmployeeController extends Controller
 
     public function add($id)
     {
-        $employeesForDropdown = Employee::getForDropdown();
-        $job = Job::find($id);
+        $allEmployees = Employee::getForDropdown();
+
+        $job = Job::with('employees')->find($id);
+        
+         $theseEmployees = [];
+            foreach ($job->employees as $employee) 
+        {
+            $theseEmployees[] = $employee->lastName.', '.$employee->firstName;
+        }
+
+    
+        $employeesForDropdown=array_diff($allEmployees, $theseEmployees);
+
         
 
         return view('employees.add')->with([

@@ -12,9 +12,8 @@
 */
 
 #Homepage
-Route::get('/', function () {
-    return view('layouts.master');
-});
+Route::get('/', 'WelcomeController@index');
+
 
 #Add a Job
 Route::get('/job/create', 'JobController@create');

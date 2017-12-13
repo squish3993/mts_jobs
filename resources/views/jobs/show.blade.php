@@ -21,6 +21,8 @@
 					<th>Comments</th>
 					<th># of Employees Required</th>
 					<th>Assigned Employees</th>
+					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 				<tr>
 			 		<td>{{ $job['id'] }}</td>

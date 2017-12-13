@@ -19,7 +19,7 @@ class Employee extends Model
 
 	    foreach ($employees as $employee) 
 	    {
-	        $employeesforDropdown[$employee['id']] = $employee->lastName.'. '.$employee->firstName;
+	        $employeesforDropdown[$employee['id']] = $employee->lastName.', '.$employee->firstName;
 	    }
 
 		return $employeesforDropdown;

@@ -16,14 +16,10 @@
 </head>
 <body>
 
-    @if(session('alert'))
-        <div class='alert'>
-            {{ session('alert') }}
-        </div>
-    @endif
+    
 
     <header>
-        <div class='container text-align:center'>   
+        <div class='bigtitle container text-align:center'>   
             <h1> Media and Technology Services </h1>
             <h2> Jobs Database </h2>
        </div>
@@ -38,6 +34,13 @@
 
 
     @stack('body')
+
+    @if(session('alert'))
+        <div class='alert'>
+            {{ session('alert') }}
+        </div>
+    @endif
+
 
 </body>
 </html>
