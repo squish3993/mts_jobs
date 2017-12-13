@@ -10,6 +10,10 @@
 @endsection
 
 @section('content')
+	<div class='sortbar container text-center'>
+       @include('modules.sortEmp')
+      </div>
+
 	<table class="table table-bordered container-fluid">
 		<div class='employees'>
 				<tr>

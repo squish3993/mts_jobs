@@ -52,6 +52,10 @@ Route::put('job/{id}/employees', 'JobController@detach');
 #View all Jobs
 Route::get('/jobs', 'JobController@index');
 
+#Sort Jobs and Employees
+Route::get('/sort/{sortterm}', 'JobController@sort');
+Route::get('/sortEmp/{sortterm}', 'EmployeeController@sort');
+
 #View Sign-Up Sheet
 Route::get('/job/{id}/employees', 'JobController@signUp');
 

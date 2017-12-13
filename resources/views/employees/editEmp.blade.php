@@ -24,6 +24,7 @@
             <div class='col-sm-5'>
                 <input type='text' class ='form-control' name='firstName' id='firstName' value='{{ old('firstName', $employee->firstName) }}'>
             </div>
+             @include('modules.error', ['fieldName' => 'firstName'])
         </div>
         
         <div class='form-group row'>
@@ -31,6 +32,7 @@
             <div class='col-sm-5'>
                 <input type='text' class ='form-control' name='lastName' id='lastName' value='{{ old('lastName', $employee->lastName) }}'>
             </div>
+             @include('modules.error', ['fieldName' => 'lastName'])
         </div>
 
         <div class='form-group row'>
@@ -38,6 +40,7 @@
             <div class='col-sm-5'>
                 <input type='text' class ='form-control' name='experience' id='experience' value='{{ old('experience', $employee->experience) }}'>
             </div>
+             @include('modules.error', ['fieldName' => 'experience'])
         </div>
         
         <div class='form-group row'>
@@ -45,6 +48,7 @@
             <div class='col-sm-5'>
                 <input type='text' class ='form-control' name='jobTitle' id='jobTitle' value='{{ old('jobTitle', $employee->jobTitle) }}'>
             </div>
+             @include('modules.error', ['fieldName' => 'jobTitle'])
         </div>
         
         <div class='form-group row'>
@@ -52,6 +56,7 @@
             <div class='col-sm-5'>
                 <input type='text' class ='form-control' name='preference' id='preference' value='{{ old('preference', $employee->preference) }}'>
             </div>
+             @include('modules.error', ['fieldName' => 'preference'])
         </div>
         
         

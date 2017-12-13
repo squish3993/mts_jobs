@@ -12,7 +12,18 @@ class JobController extends Controller
     {
         $jobs = Job::withCount('employees')->orderBy('id')->get();
         
+       
 
+     return view('jobs.index')->with([
+            'jobs' => $jobs,
+                      
+        ]);
+    }
+
+    public function sort(Request $request, $sortterm)
+    {
+        $jobs = Job::withCount('employees')->orderBy($sortterm)->get();
+        
        
 
      return view('jobs.index')->with([
@@ -66,15 +77,31 @@ class JobController extends Controller
             'department' => 'required',
             'location' => 'required',
             'specs' => 'required',
-            'numOnJob' => 'required'
+            'numOnJob' => 'required|integer'
         ]);
 
         # Add new book to the database
         $job = new Job();
+
+        $date = $request->input('year').'-'.$request->input('month').'-'.$request->input('day');
+        $hour = null;
+        if ($request->input('afternoon')=='AM')
+        {
+            $hour = $request->input('hour');
+        }
+        else 
+        {
+            $hour = $request->input('hour') + 12;
+        }
+
+        $time = $hour.'-'.$request->input('minute').'-00';
+
+        $datetime= $date.' '.$time;
+
         $job->eventName = $request->input('eventName');
         $job->name = $request->input('name');
         $job->department = $request->input('department');
-        $job->dateAndTime = '2017-11-20 15:30:00';
+        $job->dateAndTime = $datetime;
         $job->location = $request->input('location');
         $job->specs = $request->input('specs');
         $job->numOnJob = $request->input('numOnJob');
@@ -121,22 +148,35 @@ class JobController extends Controller
             'department' => 'required',
             'location' => 'required',
             'specs' => 'required',
-            'numOnJob' => 'required'
+            'numOnJob' => 'required|integer'
         ]);
 
         $job = Job::find($id);
 
+          $date = $request->input('year').'-'.$request->input('month').'-'.$request->input('day');
+        $hour = null;
+        if ($request->input('afternoon')=='AM')
+        {
+            $hour = $request->input('hour');
+        }
+        else 
+        {
+            $hour = $request->input('hour') + 12;
+        }
+
+        $time = $hour.'-'.$request->input('minute').'-00';
+        $datetime= $date.' '.$time;
         
         $job->eventName = $request->input('eventName');
         $job->name = $request->input('name');
         $job->department = $request->input('department');
-        $job->dateAndTime = '2017-11-20 15:30:00';
+        $job->dateAndTime = $datetime;
         $job->location = $request->input('location');
         $job->specs = $request->input('specs');
         $job->numOnJob = $request->input('numOnJob');
         $job->save();
 
-        
+
 
         return redirect('/job/'.$id.'/edit')->with('alert', 'Your changes were saved.');
     }
@@ -193,7 +233,8 @@ class JobController extends Controller
     {
         $job = Job::with('employees')->find($id);
         $employee = $request->input('employee');
-    
+
+        
         $job->employees()->attach($employee);
 
         return redirect('/job/'.$job->id.'/employees');

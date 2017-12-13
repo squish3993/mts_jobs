@@ -10,6 +10,10 @@
 @endsection
 
 @section('content')
+      <div class='sortbar container text-center'>
+       @include('modules.sort')
+      </div>
+      
 	<table class="table table-bordered container-fluid">
 		<div class='jobs'>
 				<tr>
@@ -31,8 +35,8 @@
              		<td>{{ $job['eventName'] }}</td>
              		<td>{{ $job['name'] }}</td>
              		<td>{{ $job['department'] }}</td>
-             		<td>{{ $job['dateAndTime'] }}</td>
-             		<td>{{ $job['location'] }}</td>
+             		<td>{{ $job['dateAndTime'] }}</td>             		
+                        <td>{{ $job['location'] }}</td>
              		<td>{{ $job['numOnJob'] }}</td>
              			
              		@if ($job['employees_count'] < $job['numOnJob'])

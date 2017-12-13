@@ -24,6 +24,7 @@
             <div class='col-sm-5'>
                 <input type='text' class ='form-control' name='firstName' id='firstName'>
             </div>
+             @include('modules.error', ['fieldName' => 'firstName'])
         </div>
         
         <div class='form-group row'>
@@ -31,6 +32,7 @@
             <div class='col-sm-5'>
                 <input type='text' class ='form-control' name='lastName' id='lastName'>
             </div>
+             @include('modules.error', ['fieldName' => 'lastName'])
         </div>
 
         <div class='form-group row'>
@@ -38,6 +40,7 @@
             <div class='col-sm-5'>
                 <input type='text' class ='form-control' name='experience' id='experience'>
             </div>
+             @include('modules.error', ['fieldName' => 'experience'])
         </div>
         
         <div class='form-group row'>
@@ -45,6 +48,7 @@
             <div class='col-sm-5'>
                 <input type='text' class ='form-control' name='jobTitle' id='jobTitle'>
             </div>
+             @include('modules.error', ['fieldName' => 'jobTitle'])
         </div>
         
         <div class='form-group row'>
@@ -52,11 +56,12 @@
             <div class='col-sm-5'>
                 <input type='text' class ='form-control' name='preference' id='preference'>
             </div>
+             @include('modules.error', ['fieldName' => 'preference'])
         </div>
         
         
 
-        <input type='submit' value='Add Job' class='btn btn-primary btn-small'>
+        <input type='submit' value='Add Employee' class='btn btn-primary btn-small'>
     </form>
 
 </div>

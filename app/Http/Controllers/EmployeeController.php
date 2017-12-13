@@ -18,6 +18,17 @@ class EmployeeController extends Controller
             'employees' => $employees	
         ]);
     }
+     public function sort(Request $request, $sortterm)
+    {
+        $employees = Employee::orderBy($sortterm)->get();
+        
+       
+
+     return view('employees.indexEmp')->with([
+            'employees' => $employees
+                      
+        ]);
+    }
 
     public function create()
     {
@@ -30,7 +41,7 @@ class EmployeeController extends Controller
         $this->validate($request, [
             'lastName' => 'required',
             'firstName' => 'required',
-            'experience' => 'required',
+            'experience' => 'required|integer',
             'jobTitle' => 'required',
             'preference' => 'required'
             
@@ -83,7 +94,7 @@ class EmployeeController extends Controller
         $this->validate($request, [
             'lastName' => 'required',
             'firstName' => 'required',
-            'experience' => 'required',
+            'experience' => 'required|integer',
             'jobTitle' => 'required',
             'preference' => 'required'
             
