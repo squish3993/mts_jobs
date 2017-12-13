@@ -33,12 +33,11 @@
 			 		<td>{{ $job['numOnJob'] }}</td>
 			 		<td>
 			 			<ol>
-					 		@foreach ($employeesForThisJob as $id => $name)
-					 			<li>{{ $employeesForThisJob[$id] }}</li>
+					 		@foreach ($employeesForThisJob as $id => $name)					 								 			
+					 			<li>{{ $employeesForThisJob[$id] }} | 					 		
+					 			<a href='/employee/{{ $job['id'] }}/{{ $lName[$id][0] }}/{{ $lName[$id][1] }}/remove'>Remove</a>
+					 			</li>
 					 		@endforeach
-
-					 		
-
 			 			</ol>
 			 		</td>
 

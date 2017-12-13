@@ -59,5 +59,80 @@ class EmployeeController extends Controller
 
         return redirect('/employees')->with('alert', 'The employee '.$request->input('lastName').' was added.');
     }
+
+     public function edit($id)
+    {
+        $employee = Employee::find($id);
+
+        if (!$employee) {
+            return redirect('/employees')->with('alert', 'Employee not found');
+        }
+
+		return view('employees.editEmp')->with([
+            'employee' => $employee
+        ]);
+    }
+
+
+    /*
+    * PUT /job/{id}
+    */
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'lastName' => 'required',
+            'firstName' => 'required',
+            'experience' => 'required',
+            'jobTitle' => 'required',
+            'preference' => 'required'
+            
+        ]);
+
+        $employee = Employee::find($id);
+
+        $employee->lastName = $request->input('lastName');
+        $employee->firstName = $request->input('firstName');
+        $employee->experience = $request->input('experience');
+        $employee->jobTitle = $request->input('jobTitle');
+        $employee->preference = $request->input('preference'); 
+        $employee->save();
+
+        
+        return redirect('/employee/'.$id.'/edit')->with('alert', 'Your changes were saved.');
+    }
+
+    public function delete($id)
+    {
+        $employee = Employee::find($id);
+
+        if (!$employee) {
+            return redirect('/employees')->with('alert', 'Employee not found');
+        }
+
+        return view('employees.deleteEmp')->with([
+            'employee' => $employee,
+        ]);
+    }
+
+
+    /*
+    * Actually deletes the job
+    * DELETE
+    * /book/{id}/delete
+    */
+    public function destroy($id)
+    {
+        $employee = Employee::find($id);
+
+        if (!$employee) {
+            return redirect('/employees')->with('alert', 'Employee not found');
+        }
+
+        
+        $employee->jobs()->detach();
+        $employee->delete();
+
+        return redirect('/employees')->with('alert', $employee->lastName.' was removed.');
+    }
     
 }

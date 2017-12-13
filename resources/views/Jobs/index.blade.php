@@ -1,3 +1,4 @@
+
 @extends('layouts.master')
 
 @push('head')
@@ -9,7 +10,7 @@
 @endsection
 
 @section('content')
-	<table>
+	<table class="table table-bordered">
 		<div class='jobs'>
 				<tr>
 					<th>ID</th>
@@ -18,8 +19,8 @@
 					<th>Department</th>
 					<th>Date and Time</th>
 					<th>Location</th>
-					<th>Comments</th>
 					<th># of Employees Required</th>
+					<th> # of Employees Assigned</th>
 					<th>View</th>
 				</tr>
 			@foreach($jobs as $job)
@@ -30,8 +31,18 @@
              		<td>{{ $job['department'] }}</td>
              		<td>{{ $job['dateAndTime'] }}</td>
              		<td>{{ $job['location'] }}</td>
-             		<td>{{ $job['specs'] }}</td>
              		<td>{{ $job['numOnJob'] }}</td>
+             			
+             		@if ($job['employees_count'] < $job['numOnJob'])
+             			<td class='table-success'>
+             				{{ $job['employees_count'] }}
+             			</td>
+             		@else
+             			<td class='table-danger'>
+             				{{ $job['employees_count'] }}
+             			</td>
+             		@endif
+             		
              		<td><a href='/job/{{ $job['id'] }}/employees'>View Sign-Up Sheet</a></td>            		
              		<td><a href='/job/{{ $job['id'] }}/edit'>Edit</a> |</td>
              		<td><a href='/job/{{ $job['id'] }}/delete'>Delete</a></td>

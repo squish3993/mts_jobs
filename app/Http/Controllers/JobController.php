@@ -10,30 +10,45 @@ class JobController extends Controller
 {
      public function index(Request $request)
     {
-        $jobs = Job::with('employees')->orderBy('id')->get();
+        $jobs = Job::withCount('employees')->orderBy('id')->get();
         
 
+       
+
      return view('jobs.index')->with([
-            'jobs' => $jobs
+            'jobs' => $jobs,
                       
         ]);
     }
 
     public function signUp($id)
     {
-        $job = Job::find($id);
+        $job = Job::withCount('employees')->find($id);
 
         $employeesForThisJob= [];
+        $lName= [];
+        
         
         foreach ($job->employees as $employee) 
         {
             $employeesForThisJob[] = $employee->lastName.', '.$employee->firstName;
+            
         }
+        
+
+        foreach( $employeesForThisJob as $id)
+        {
+            $lName[] = explode(", ", $id);
+        }
+
+      
 
         return view('jobs.show')->with
             ([
                 'employeesForThisJob' => $employeesForThisJob,
-                'job' => $job
+                'job' => $job,
+                'lName' => $lName
+                
             ]);
     }
 
@@ -152,9 +167,19 @@ class JobController extends Controller
         }
 
         
-
+        $job->employees()->detach();
         $job->delete();
 
         return redirect('/jobs')->with('alert', $job->eventName.' was removed.');
+    }
+
+   public function remove($id, $lastName, $firstName)
+    {
+        $job = Job::find($id);
+        $employee = Employee::where('lastName', '=', $lastName)->where('firstName', '=', $firstName)->first();
+
+        $job->employees()->detach($employee->id);
+       
+       return redirect('/job/'.$job->id.'/employees')->with('alert', $employee->lastName.', '.$employee->firstName. ' was removed from the job.');
     }
 }

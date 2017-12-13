@@ -28,15 +28,27 @@ Route::post('/employees', 'EmployeeController@store');
 Route::get('/job/{id}/edit', 'JobController@edit');
 Route::put('/job/{id}', 'JobController@update');
 
+#Edit an Employee
+Route::get('/employee/{id}/edit', 'EmployeeController@edit');
+Route::put('/employee/{id}', 'EmployeeController@update');
+
 # Delete a book
 Route::get('/job/{id}/delete', 'JobController@delete');
 Route::delete('/job/{id}', 'JobController@destroy');
+
+# Delete an Employee
+Route::get('/employee/{id}/delete', 'EmployeeController@delete');
+Route::delete('/employee/{id}', 'EmployeeController@destroy');
 
 #View all Jobs
 Route::get('/jobs', 'JobController@index');
 
 #View Sign-Up Sheet
 Route::get('/job/{id}/employees', 'JobController@signUp');
+
+#Remove an Employee from a Job
+Route::get('/employee/{id}/{lastName}/{firstName}/remove', 'JobController@remove');
+Route::put('job/{id}/employees', 'JobController@detach');
 
 #View all Employees
 Route::get('/employees', 'EmployeeController@index');
