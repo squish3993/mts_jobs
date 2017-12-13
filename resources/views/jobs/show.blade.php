@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-	<table>
+	<table class="table table-bordered container-fluid">
 		<div class='jobs'>
 				<tr>
 					<th>ID</th>

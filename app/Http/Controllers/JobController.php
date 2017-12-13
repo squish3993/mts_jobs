@@ -136,6 +136,8 @@ class JobController extends Controller
         $job->numOnJob = $request->input('numOnJob');
         $job->save();
 
+        
+
         return redirect('/job/'.$id.'/edit')->with('alert', 'Your changes were saved.');
     }
 

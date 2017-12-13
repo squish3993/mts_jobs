@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-	<table class="table table-bordered">
+	<table class="table table-bordered container-fluid">
 		<div class='jobs'>
 				<tr>
 					<th>ID</th>
@@ -22,6 +22,8 @@
 					<th># of Employees Required</th>
 					<th> # of Employees Assigned</th>
 					<th>View</th>
+                              <th>Edit</th>
+                              <th>Delete</th>
 				</tr>
 			@foreach($jobs as $job)
 				<tr>
@@ -44,7 +46,7 @@
              		@endif
              		
              		<td><a href='/job/{{ $job['id'] }}/employees'>View Sign-Up Sheet</a></td>            		
-             		<td><a href='/job/{{ $job['id'] }}/edit'>Edit</a> |</td>
+             		<td><a href='/job/{{ $job['id'] }}/edit'>Edit</a></td>
              		<td><a href='/job/{{ $job['id'] }}/delete'>Delete</a></td>
              	</tr>
              @endforeach

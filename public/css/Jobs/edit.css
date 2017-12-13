@@ -1,0 +1,12 @@
+label, legend, {
+    display:block;
+}
+
+form {
+	width:90%;
+	margin-left: 200px;
+}
+
+.btn {
+	margin-right: 260px;
+}

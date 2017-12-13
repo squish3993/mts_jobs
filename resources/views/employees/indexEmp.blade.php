@@ -10,19 +10,19 @@
 @endsection
 
 @section('content')
-	<table>
+	<table class="table table-bordered container-fluid">
 		<div class='employees'>
 				<tr>
-					<th>ID</th>
 					<th>Last Name</th>
 					<th>First Name</th>
-					<th>Experience</th>
+					<th>Experience (Months)</th>
 					<th>Job Title</th>
 					<th>Job Preference</th>
+					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			@foreach($employees as $employee)
 				<tr>
-             		<td>{{ $employee['id'] }}</td>
              		<td>{{ $employee['lastName'] }}</td>
              		<td>{{ $employee['firstName'] }}</td>
              		<td>{{ $employee['experience'] }}</td>
@@ -30,7 +30,7 @@
              		<td>{{ $employee['preference'] }}</td>
    
 
-             		<td><a href='/employee/{{ $employee['id'] }}/edit'>Edit</a> |</td>
+             		<td><a href='/employee/{{ $employee['id'] }}/edit'>Edit</a></td>
              		<td><a href='/employee/{{ $employee['id'] }}/delete'>Delete</a></td>
              	</tr>
              @endforeach
