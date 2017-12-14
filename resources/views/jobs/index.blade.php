@@ -14,8 +14,8 @@
         @include('modules.sort')
     </div>
       
-	<table class="table table-bordered container-fluid">
-		<div class='jobs'>
+    <div class='jobs'>
+	   <table class="table table-bordered container-fluid">
     			<tr>
     				<th>ID</th>
     				<th>Event Name</th>
@@ -54,6 +54,6 @@
              		<td><a href='/job/{{ $job['id'] }}/delete'>Delete</a></td>
              	</tr>
             @endforeach
-	    </div>
-	</table>	
+	    </table>
+    </div>	
 @endsection
