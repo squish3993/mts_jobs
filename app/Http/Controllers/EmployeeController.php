@@ -8,34 +8,33 @@ Use App\Job;
 
 class EmployeeController extends Controller
 {
+    #Returns view of all employees
     public function index(Request $request)
     {
             $employees = Employee::orderBy('lastName')->get();
 
-    
-
-        return view('employees.indexEmp')->with([
-            'employees' => $employees	
-        ]);
+            return view('employees.indexEmp')->with([
+                'employees' => $employees	
+            ]);
     }
-     public function sort(Request $request, $sortterm)
+
+    #Returns view of all employees sorted by the input
+    public function sort(Request $request, $sortterm)
     {
         $employees = Employee::orderBy($sortterm)->get();
         
-       
-
-     return view('employees.indexEmp')->with([
-            'employees' => $employees
-                      
+        return view('employees.indexEmp')->with([
+            'employees' => $employees                     
         ]);
     }
 
+    #Returns the user to the Create an Employee webpage
     public function create()
     {
-        return view('employees.createEmp');
-        
+        return view('employees.createEmp');       
     }
 
+    #Saves the information provided in the create page as a new Employee
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -44,39 +43,26 @@ class EmployeeController extends Controller
             'experience' => 'required|integer',
             'jobTitle' => 'required',
             'preference' => 'required'
-            
         ]);
 
-        # Add new book to the database
         $employee = new Employee();
         $employee->lastName = $request->input('lastName');
         $employee->firstName = $request->input('firstName');
         $employee->experience = $request->input('experience');
         $employee->jobTitle = $request->input('jobTitle');
         $employee->preference = $request->input('preference');   
-
-
-        # Note: Not using the Eloquent `associate` method to connect book to authors
-        # Why: because it would require an additional query to get the Author object
-        # We already know the author id (it's in the request) so we just use that and
-        # "manually" set the `author_id` for this book
-        #$book->author_id = $request->input('author');
-
         $employee->save();
-
-        # Note: You have to sync the tags *after* the book as been added to the database
-        # This is because you need a `book_id` to create a relationship with a tag in the
-        # `book_tag` pivot table, and the `book_id` will not exist until after the book is added
-        #$book->tags()->sync($request->input('tags'));
 
         return redirect('/employees')->with('alert', 'The employee '.$request->input('lastName').' was added.');
     }
 
-     public function edit($id)
+    #Returns the user to the edit an Employee page
+    public function edit($id)
     {
         $employee = Employee::find($id);
 
-        if (!$employee) {
+        if (!$employee) 
+        {
             return redirect('/employees')->with('alert', 'Employee not found');
         }
 
@@ -85,10 +71,7 @@ class EmployeeController extends Controller
         ]);
     }
 
-
-    /*
-    * PUT /job/{id}
-    */
+    #Updates the new information from the Edit and Employee page
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -108,16 +91,17 @@ class EmployeeController extends Controller
         $employee->jobTitle = $request->input('jobTitle');
         $employee->preference = $request->input('preference'); 
         $employee->save();
-
         
         return redirect('/employee/'.$id.'/edit')->with('alert', 'Your changes were saved.');
     }
 
+    #Returns the user to the Delete and Employee confirmation page
     public function delete($id)
     {
         $employee = Employee::find($id);
 
-        if (!$employee) {
+        if (!$employee) 
+        {
             return redirect('/employees')->with('alert', 'Employee not found');
         }
 
@@ -126,27 +110,23 @@ class EmployeeController extends Controller
         ]);
     }
 
-
-    /*
-    * Actually deletes the job
-    * DELETE
-    * /book/{id}/delete
-    */
+    #Deletes the Employee from the Database
     public function destroy($id)
     {
         $employee = Employee::find($id);
 
-        if (!$employee) {
+        if (!$employee) 
+        {
             return redirect('/employees')->with('alert', 'Employee not found');
         }
 
-        
         $employee->jobs()->detach();
         $employee->delete();
 
         return redirect('/employees')->with('alert', $employee->lastName.' was removed.');
     }
 
+    #Returns the user to the Add an Employee page with a drop down of Employees
     public function add($id)
     {
         $allEmployees = Employee::getForDropdown();
@@ -159,16 +139,14 @@ class EmployeeController extends Controller
             $theseEmployees[] = $employee->lastName.', '.$employee->firstName;
         }
 
-    
+        #This function creates an array of only Employees not currently assigned the Job
+        #This prevents users from accidently signing up twice
         $employeesForDropdown=array_diff($allEmployees, $theseEmployees);
 
         
-
         return view('employees.add')->with([
             'employeesForDropdown' => $employeesForDropdown,
             'job' => $job
             ]);
-    }
-
-    
-}
+    }    
+} #EoC

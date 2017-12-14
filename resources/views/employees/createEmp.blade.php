@@ -59,8 +59,6 @@
              @include('modules.error', ['fieldName' => 'preference'])
         </div>
         
-        
-
         <input type='submit' value='Add Employee' class='btn btn-primary btn-small'>
     </form>
 

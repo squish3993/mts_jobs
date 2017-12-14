@@ -12,7 +12,7 @@
 @section('content')
 	<div class='sortbar container text-center'>
        @include('modules.sortEmp')
-      </div>
+   	</div>
 
 	<table class="table table-bordered container-fluid">
 		<div class='employees'>
@@ -39,6 +39,5 @@
              	</tr>
              @endforeach
 	    </div>
-	</table>
-	
+	</table>	
 @endsection

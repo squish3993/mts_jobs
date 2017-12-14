@@ -19,19 +19,19 @@ class EmployeesTableSeeder extends Seeder
         ];
         $count = count($employees);
     
-    foreach ($employees as $key => $employee) {
-        Employee::insert([
-            'created_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
-            'updated_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
-            'firstName' => $employee[0],
-            'lastName' =>$employee[1],
-            'experience' => $employee[2],
-            'jobTitle' => $employee[3],
-            'preference' => $employee[4]
-            ]);
-           
-        $count--;
-    
-   	 }
+        foreach ($employees as $key => $employee) 
+        {
+            Employee::insert([
+                'created_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
+                'updated_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
+                'firstName' => $employee[0],
+                'lastName' =>$employee[1],
+                'experience' => $employee[2],
+                'jobTitle' => $employee[3],
+                'preference' => $employee[4]
+                ]);
+               
+            $count--;
+       	 }
     }
 }

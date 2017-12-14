@@ -10,10 +10,10 @@
 
 @section('content')
 
-<div class='text-center'>
-	<h1>Sign Up for a Job!</h1>
-	<h3>Select Your Name</h3>
-	
+	<div class='text-center'>
+		<h1>Sign Up for a Job!</h1>
+		<h3>Select Your Name</h3>
+		
 	    <form method='POST' action='/job/{{ $job->id }}/add'>
 
 	    	{{ method_field('put') }}

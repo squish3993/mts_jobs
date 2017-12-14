@@ -8,68 +8,74 @@ use App\Employee;
 
 class JobController extends Controller
 {
-     public function index(Request $request)
+    #Returns the user to the view all Jobs page
+    public function index(Request $request)
     {
         $jobs = Job::withCount('employees')->orderBy('id')->get();
         
-       
-
-     return view('jobs.index')->with([
-            'jobs' => $jobs,
-                      
+        return view('jobs.index')->with([
+            'jobs' => $jobs,                      
         ]);
     }
 
+    #Sorts the jobs based on the input
     public function sort(Request $request, $sortterm)
     {
         $jobs = Job::withCount('employees')->orderBy($sortterm)->get();
-        
-       
-
-     return view('jobs.index')->with([
-            'jobs' => $jobs,
-                      
+     
+        return view('jobs.index')->with([
+            'jobs' => $jobs                    
         ]);
     }
 
+    #Returns the View Job page where the user can sign up for that particular job
     public function signUp($id)
     {
+        #Job is loaded 'withcount' for use in display file to make sure the Job isn't overloaded 
         $job = Job::withCount('employees')->find($id);
 
         $employeesForThisJob= [];
-        $lName= [];
-        
-        
+        $lName= []; 
+
+        #Creates an array that is passed to the HTML file to display signed up Employees    
         foreach ($job->employees as $employee) 
         {
-            $employeesForThisJob[] = $employee->lastName.', '.$employee->firstName;
-            
+            $employeesForThisJob[] = $employee->lastName.', '.$employee->firstName;          
         }
         
-
+        #Creates an array that is passed to the HTML file to create a "Remove link" for this particular employee
         foreach( $employeesForThisJob as $id)
         {
             $lName[] = explode(", ", $id);
         }
 
-      
-
         return view('jobs.show')->with
             ([
                 'employeesForThisJob' => $employeesForThisJob,
                 'job' => $job,
-                'lName' => $lName
-                
+                'lName' => $lName                
             ]);
     }
 
-    public function create()
+    #Attaches an Employee to the Job
+    public function attach(Request $request, $id)
     {
-        return view('jobs.create');
+        $job = Job::with('employees')->find($id);
+        $employee = $request->input('employee'); 
         
+        $job->employees()->attach($employee);
+
+        return redirect('/job/'.$job->id.'/employees');      
     }
 
-     public function store(Request $request)
+    #Returns the user to the Add a Job page
+    public function create()
+    {
+        return view('jobs.create');      
+    }
+
+    #Stores the new job in the Database
+    public function store(Request $request)
     {
         $this->validate($request, [
             'eventName' => 'required',
@@ -80,11 +86,13 @@ class JobController extends Controller
             'numOnJob' => 'required|integer'
         ]);
 
-        # Add new book to the database
         $job = new Job();
 
+        #Following code is used to convert Dropdown date and time input menu into readable dateTime format. 
+        #dateTime doesn't need validation because the drop down menu prevents any malicious inputs
         $date = $request->input('year').'-'.$request->input('month').'-'.$request->input('day');
         $hour = null;
+        
         if ($request->input('afternoon')=='AM')
         {
             $hour = $request->input('hour');
@@ -95,7 +103,6 @@ class JobController extends Controller
         }
 
         $time = $hour.'-'.$request->input('minute').'-00';
-
         $datetime= $date.' '.$time;
 
         $job->eventName = $request->input('eventName');
@@ -105,24 +112,11 @@ class JobController extends Controller
         $job->location = $request->input('location');
         $job->specs = $request->input('specs');
         $job->numOnJob = $request->input('numOnJob');
-
-
-        # Note: Not using the Eloquent `associate` method to connect book to authors
-        # Why: because it would require an additional query to get the Author object
-        # We already know the author id (it's in the request) so we just use that and
-        # "manually" set the `author_id` for this book
-        #$book->author_id = $request->input('author');
-
         $job->save();
-
-        # Note: You have to sync the tags *after* the book as been added to the database
-        # This is because you need a `book_id` to create a relationship with a tag in the
-        # `book_tag` pivot table, and the `book_id` will not exist until after the book is added
-        #$book->tags()->sync($request->input('tags'));
-
         return redirect('/jobs')->with('alert', 'The job '.$request->input('eventName').' was added.');
     }
 
+    #Returns the user to the Job Edit webpage
     public function edit($id)
     {
         $job = Job::find($id);
@@ -136,10 +130,7 @@ class JobController extends Controller
         ]);
     }
 
-
-    /*
-    * PUT /job/{id}
-    */
+    #Updates the information from the edit page
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -153,7 +144,8 @@ class JobController extends Controller
 
         $job = Job::find($id);
 
-          $date = $request->input('year').'-'.$request->input('month').'-'.$request->input('day');
+        #Following code is to convert Date and Time dropdown input to readable dateTime format
+        $date = $request->input('year').'-'.$request->input('month').'-'.$request->input('day');
         $hour = null;
         if ($request->input('afternoon')=='AM')
         {
@@ -176,72 +168,54 @@ class JobController extends Controller
         $job->numOnJob = $request->input('numOnJob');
         $job->save();
 
-
-
         return redirect('/job/'.$id.'/edit')->with('alert', 'Your changes were saved.');
     }
 
+    #Returns the user to the Delete job confirmation page
     public function delete($id)
     {
         $job = Job::find($id);
 
-        if (!$job) {
+        if (!$job) 
+        {
             return redirect('/jobs')->with('alert', 'Job not found');
         }
 
         return view('jobs.delete')->with([
-            'job' => $job,
+            'job' => $job
         ]);
     }
 
-
-    /*
-    * Actually deletes the job
-    * DELETE
-    * /book/{id}/delete
-    */
+    #Deletes the job from the database
     public function destroy($id)
     {
         $job = Job::find($id);
 
-        if (!$job) {
+        if (!$job) 
+        {
             return redirect('/jobs')->with('alert', 'Job not found');
         }
 
-        
         $job->employees()->detach();
         $job->delete();
 
         return redirect('/jobs')->with('alert', $job->eventName.' was removed.');
     }
 
+    #Removes an employee from the job
    public function remove($id, $lastName, $firstName)
     {
         $job = Job::find($id);
         $employee = Employee::where('lastName', '=', $lastName)->where('firstName', '=', $firstName)->first();
 
-         if (!$employee) 
+        if (!$employee) 
         {
             return redirect('/jobs')->with('alert', 'Employee not found');
         }
+        
         $job->employees()->detach($employee->id);
        
-       return redirect('/job/'.$job->id.'/employees')->with('alert', $employee->lastName.', '.$employee->firstName. ' was removed from the job.');
+        return redirect('/job/'.$job->id.'/employees')->with('alert', $employee->lastName.', '.$employee->firstName. ' was removed from the job.');
     }
-
-    public function attach(Request $request, $id)
-    {
-        $job = Job::with('employees')->find($id);
-        $employee = $request->input('employee');
-
-        
-        $job->employees()->attach($employee);
-
-        return redirect('/job/'.$job->id.'/employees');
-        
-        
-    }
-
-
-}
+} #Eoc
 

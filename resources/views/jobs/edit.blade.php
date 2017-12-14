@@ -10,17 +10,15 @@
 
 @section('content')
 
-<div class='container text-center'>
-    
-    <h1>Edit This Job</h1>
-    <div class='details'>* Required fields</div>
+    <div class='container text-center'>
+        
+        <h1>Edit This Job</h1>
+        <div class='details'>* Required fields</div>
 
         <form method='POST' action='/job/{{ $job->id }}'>
 
             {{ method_field('put') }}
             {{ csrf_field() }}
-
-            
 
             <div class='form-group row'>
                 <label for='eventName' class='col-sm-2 col-form-label'>* Event Name</label>
@@ -55,7 +53,7 @@
             </div>
 
             @include('modules.datetime')
-             @include('modules.error', ['fieldName' => 'dateAndTime'])
+            @include('modules.error', ['fieldName' => 'dateAndTime'])
 
             <div class='form-group row'>
                 <label for='numOnJob' class='col-sm-2 col-form-label'>* How many People do you need</label>
@@ -81,8 +79,7 @@
 
             
                 
-                <input type='submit' value='Save Changes' class='btn btn-primary btn-small'>
+            <input type='submit' value='Save Changes' class='btn btn-primary btn-small'>
         </form>
-</div>
-
+    </div>
 @endsection

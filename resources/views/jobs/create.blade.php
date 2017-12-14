@@ -10,16 +10,14 @@
 
 @section('content')
 
-<div class='container text-center'>
+    <div class='container text-center'>
     
-    <h1>Add a New Job</h1>
-    <div class='details'>* Required fields</div>
+        <h1>Add a New Job</h1>
+        <div class='details'>* Required fields</div>
 
         <form method='POST' action='/jobs'>
 
             {{ csrf_field() }}
-
-            
 
             <div class='form-group row'>
                 <label for='eventName' class='col-sm-2 col-form-label'>* Event Name</label>
@@ -80,8 +78,7 @@
 
             
                 
-                <input type='submit' value='Add Job' class='btn btn-primary btn-small'>
+            <input type='submit' value='Add Job' class='btn btn-primary btn-small'>
         </form>
-</div>
-
+    </div>
 @endsection

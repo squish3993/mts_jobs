@@ -62,19 +62,6 @@ Route::get('/job/{id}/employees', 'JobController@signUp');
 Route::get('/employees', 'EmployeeController@index');
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::get('/debug', function () {
 
     $debug = [

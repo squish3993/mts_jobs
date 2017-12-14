@@ -19,20 +19,20 @@ class JobsTableSeeder extends Seeder
         ];
         $count = count($jobs);
     
-    foreach ($jobs as $key => $job) {
-        Job::insert([
-            'created_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
-            'updated_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
-            'eventName' => $job[0],
-            'name' =>$job[1],
-            'department' => $job[2],
-            'dateAndTime' => $job[3],
-            'location' => $job[4],
-            'specs' => $job[5],
-            'numOnJob' => $job[6]
-        ]);
-        $count--;
-    
+        foreach ($jobs as $key => $job) 
+        {
+            Job::insert([
+                'created_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
+                'updated_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
+                'eventName' => $job[0],
+                'name' =>$job[1],
+                'department' => $job[2],
+                'dateAndTime' => $job[3],
+                'location' => $job[4],
+                'specs' => $job[5],
+                'numOnJob' => $job[6]
+            ]);
+            $count--;       
+        }
     }
-}
 }
