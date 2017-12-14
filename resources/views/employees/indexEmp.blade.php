@@ -13,9 +13,8 @@
 	<div class='sortbar container text-center'>
        @include('modules.sortEmp')
    	</div>
-
-	<table class="table table-bordered container-fluid">
-		<div class='employees'>
+	<div class='employees'>
+		<table class="table table-bordered container-fluid">
 				<tr>
 					<th>Last Name</th>
 					<th>First Name</th>
@@ -38,6 +37,6 @@
              		<td><a href='/employee/{{ $employee['id'] }}/delete'>Delete</a></td>
              	</tr>
              @endforeach
-	    </div>
-	</table>	
+	    </table>	
+	</div>
 @endsection
